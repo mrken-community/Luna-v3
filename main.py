@@ -92,7 +92,7 @@ async def execute(ctx, command : str, args : str = None):
                         invite_uses += invite.uses
                     base_embed = get_base_embed()
                     base_embed.title = "アナリティクス"
-                    base_embed.set_author(name="サーバー名", value=ctx.guild.name)
+                    base_embed.add_field(name="サーバー名", value=ctx.guild.name)
                     base_embed.add_field(name="ユーザー数",value=ctx.guild.member_count)
                     base_embed.add_field(name="有効な招待リンクの数",value=len(invites))
                     base_embed.add_field(name="有効な招待リンクの使用数",value=invite_uses)
