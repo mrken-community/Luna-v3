@@ -46,9 +46,17 @@ class VIPAppModal(discord.ui.Modal):
         await sent_embed_for_admin.add_reaction("✅")
 
 class VIPAppButton(discord.ui.View):
-    @discord.ui.button(label="申請フォームへ", style=discord.ButtonStyle.success, emoji="👑")
+    def __init__(self):
+        super().__init__(timeout=None)
+
+    @discord.ui.button(label="申請フォームへ", custom_id="vip-app-button", style=discord.ButtonStyle.primary, emoji="👑")
     async def button_callback(self, button, interaction):
         await interaction.response.send_modal(VIPAppModal(title="無料VIP申請フォーム"))
+
+@bot.event
+async def on_ready():
+    bot.add_view(VIPAppButton())
+    print("(Luna) Ready")
 
 @bot.event
 async def on_raw_reaction_add(payload):
@@ -98,8 +106,8 @@ async def execute(ctx, command : str, args : str = None):
                     base_embed.add_field(name="有効な招待リンクの使用数",value=invite_uses)
                     await ctx.respond(embed=base_embed, ephemeral=True)
                     return
-    except:
-        pass
+    except Exception as e:
+        print(f"Execute error: {e}")
     await ctx.delete()
 
 bot.run(get_environ("Luna_v3")["token"])
