@@ -1,4 +1,3 @@
-from multiprocessing.sharedctypes import Value
 import discord
 import os
 import datetime
