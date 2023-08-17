@@ -25,7 +25,6 @@ class VIPAppModal(discord.ui.Modal):
         self.add_item(discord.ui.InputText(label="FXGT UID", required=True))
         self.add_item(discord.ui.InputText(label="Bitget UID", required=False))
         self.add_item(discord.ui.InputText(label="ByBit UID", required=False))
-        self.add_item(discord.ui.InputText(label="OKX UID", required=False))
 
     async def callback(self, interaction: discord.Interaction):
         embed_for_user = get_base_embed()
@@ -40,7 +39,6 @@ class VIPAppModal(discord.ui.Modal):
         embed_for_admin.add_field(name="FXGT", value=self.children[0].value, inline=False)
         embed_for_admin.add_field(name="Bitget", value=self.children[1].value, inline=False)
         embed_for_admin.add_field(name="ByBit", value=self.children[2].value, inline=False)
-        embed_for_admin.add_field(name="OKX", value=self.children[3].value, inline=False)
         mici = bot.get_channel(management_interface_channel_id)
         sent_embed_for_admin = await mici.send(embed=embed_for_admin)
         await sent_embed_for_admin.add_reaction("✅")
@@ -90,7 +88,7 @@ async def execute(ctx, command : str, args : str = None):
                         case "vip_form":
                             base_embed = get_base_embed()
                             base_embed.title = "無料VIP申請フォーム"
-                            base_embed.description = "FXGTのUID + (BitGet, ByBit, OKX)の3つの中から1つ以上のUIDを入力してください。"
+                            base_embed.description = "FXGTのUID + (BitGet, ByBit)の2つの中から1つ以上のUIDを入力してください。"
                             await ctx.respond(embed=base_embed, view=VIPAppButton())
                             return
                 case "analytics":
